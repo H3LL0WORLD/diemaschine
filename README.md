@@ -1,10 +1,11 @@
 # diemaschine
 Find anyone on public webcams, found with shodan. 
 
-This project is inspired by [this](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") writtenarct by Medium
+This project is inspired by [this](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") article written by Medium.
 
 Setup:
 'sudo pip install shodan'
+`sudo pip install shodan`
 
 in the diemaschine.py script are five important functions:
 shodan_search: searches shodan.io for public cams and adds link-parts to the ip, so detect_faces can use them. runs detect_faces_ip_cam_once one time for each ip.
