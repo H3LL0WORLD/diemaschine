@@ -2,7 +2,9 @@
 Find anyone on public webcams, found with shodan. 
 
 This project is inspired by [this](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") article written by Medium.
-This Prohect has been tested for Ubuntu 14.04
+
+This Project has been tested for Ubuntu 14.04
+
 Setup:
 First you have to install opencv and dlib:     
 `wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
@@ -26,6 +28,14 @@ First you have to install opencv and dlib:
 `sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
 
 `sudo apt-get install python-opencv`
+
+Now we have to install Torch (you can find more informations about Torch [here](https://torch.ch "torch_link") )
+
+`git clone https://github.com/torch/distro.git ~/torch --recursive`
+
+`cd ~/torch; bash install-deps;`
+
+`./install.sh`
 
 
 in the diemaschine.py script are five important functions:
