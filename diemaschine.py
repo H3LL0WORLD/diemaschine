@@ -139,16 +139,17 @@ def get_images(name):
 	    except Exception as e:
 	        print "could not load : "+img
 	        print e
+#These are command to do things like training a new classifier to distinguish faces, at the moment please ignore them!
+#def pose_detection():
+#	call(["sudo python ./util/align-dlib.py .training-images/ align outerEyesAndNose .aligned-images/ --size 96"])
+#def get_represens():
+#	call(["sudo ./batch-represent/main.lua -outDir ./generated-embeddings/ -data ./aligned-images/"])
 
-def pose_detection():
-	call(["sudo python ./util/align-dlib.py .training-images/ align outerEyesAndNose .aligned-images/ --size 96"])
-def get_represens():
-	call(["sudo ./batch-represent/main.lua -outDir ./generated-embeddings/ -data ./aligned-images/"])
+#def train_model():
+#	call(["sudo python ./demos/classifier.py train ./generated-embeddings/"])
 
-def train_model():
-	call(["sudo python ./demos/classifier.py train ./generated-embeddings/"])
+
 #name = raw_input("name")
 #get_images(name)
-#pose_detection
 #view_webcam("http://213.101.216.58:8089/cam_1.cgi?.mjpg")
 #shodan_search("webcamxp")

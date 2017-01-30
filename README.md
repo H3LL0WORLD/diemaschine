@@ -1,5 +1,7 @@
 # diemaschine
-#Find anyone on public webcams, found with shodan. 
+Find anyone on public webcams, found with shodan. 
+An [example][https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test"]
+the project is inspired by an article by Medium: https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590
 
 in the diemaschine.py script are four important functions:
 shodan_search: searches shodan.io for public cams and adds link-parts to the ip, so detect_faces can use them.
