@@ -5,25 +5,25 @@ This project is inspired by [this](https://medium.com/@ageitgey/machine-learning
 
 Setup:
 First you have to install OpenFace and dlib:     
-`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2
+`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
 
-mkdir -p ~/src
+`mkdir -p ~/src`
 
-cd ~/src
+cd ~/src`
 
-tar xf dlib-18.16.tar.bz2
+`tar xf dlib-18.16.tar.bz2`
 
-cd dlib-18.16/python_examples  
+`cd dlib-18.16/python_examples`  
 
-mkdir build 
+`mkdir build` 
 
-cd build 
+`cd build` 
 
-cmake ../../tools/python  
+`cmake ../../tools/python`  
 
-cmake --build . --config Release 
+`cmake --build . --config Release`  
 
-sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
+`sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
 
 
 in the diemaschine.py script are five important functions:
