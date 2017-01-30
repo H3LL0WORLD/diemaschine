@@ -29,7 +29,7 @@ First you have to install opencv and dlib:
 
 `sudo apt-get install python-opencv`
 
-Now we have to install Torch, you can find more informations about Torch [here](https://www.torch.ch "torch_") 
+Now we have to install Torch, you can find more informations about Torch at torch.ch 
 
 `git clone https://github.com/torch/distro.git ~/torch --recursive`
 
