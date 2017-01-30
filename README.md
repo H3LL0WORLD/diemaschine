@@ -2,9 +2,9 @@
 Find anyone on public webcams, found with shodan. 
 
 This project is inspired by [this](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") article written by Medium.
-
+This Prohect has been tested for Ubuntu 14.04
 Setup:
-First you have to install OpenFace and dlib:     
+First you have to install opencv and dlib:     
 `wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
 
 `mkdir -p ~/src`
@@ -24,6 +24,8 @@ First you have to install OpenFace and dlib:
 `cmake --build . --config Release`  
 
 `sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
+
+`sudo apt-get install python-opencv`
 
 
 in the diemaschine.py script are five important functions:
