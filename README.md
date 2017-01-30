@@ -1,6 +1,6 @@
 # diemaschine
 Find anyone on public webcams, found with shodan. 
-An [example][https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test"]
+An [example](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test")
 the project is inspired by an article by Medium: https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590
 
 in the diemaschine.py script are four important functions:
