@@ -15,7 +15,7 @@ import urllib
 import numpy as np
 import shodan
 
-SHODAN_API_KEY = "K9AWIb4CpTOR0u58xdJ2AJ9BGxVNJIId"
+SHODAN_API_KEY = "PLACE SHODAN API KEY HERE"
 
 api = shodan.Shodan(SHODAN_API_KEY)
 
@@ -30,9 +30,48 @@ def shodan_search(query):
 	        print 'Results found: %s' % results['total']
 	        for result in results['matches']:
 					#print result['ip_str']
-					print "http://"+result['ip_str']+"/cam_1.cgi?.mjpg"
+					detect_faces_ip_cam_once("http://"+result['ip_str']+"/cam_1.cgi?.mjpg")
 	except shodan.APIError, e:
 	        print 'Error: %s' % e
+
+def detect_faces_ip_cam_once(ip):
+#difference to detect_faces_ip_cam: will only run once
+	predictor_model = "shape_predictor_68_face_landmarks.dat"
+
+	face_detector = dlib.get_frontal_face_detector()
+	face_pose_predictor = dlib.shape_predictor(predictor_model)
+	win = dlib.image_window()
+
+	stream=urllib.urlopen(ip)
+	bytes = ''
+	i = 1
+	
+	bytes+=stream.read(1024)
+	a = bytes.find('\xff\xd8')
+	b = bytes.find('\xff\xd9')
+	if a!=-1 and b!=-1:
+	    jpg = bytes[a:b+2]
+	    bytes= bytes[b+2:]
+	    frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
+	    #cv2.imshow('i',frame)
+	    if cv2.waitKey(1) ==27:
+	        exit(0)  
+		
+		
+	detected_faces = face_detector(frame, 0)
+
+	win.set_image(frame)
+	
+	win.clear_overlay()
+	for i, face_rect in enumerate(detected_faces):
+
+			
+		print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(i, face_rect.left(), face_rect.top(), face_rect.right(), face_rect.bottom()))
+		win.add_overlay(face_rect)
+
+		pose_landmarks = face_pose_predictor(frame, face_rect)
+
+		win.add_overlay(pose_landmarks)
 
 
 def detect_faces_ip_cam(ip):
@@ -152,4 +191,4 @@ def get_images(name):
 #name = raw_input("name")
 #get_images(name)
 #view_webcam("http://213.101.216.58:8089/cam_1.cgi?.mjpg")
-#shodan_search("webcamxp")
+shodan_search("webcamxp")
