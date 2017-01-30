@@ -5,7 +5,7 @@ This project is inspired by [this](https://medium.com/@ageitgey/machine-learning
 
 Setup:
 First you have to install OpenFace and dlib:     
-`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
+`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2
 
 mkdir -p ~/src
 
