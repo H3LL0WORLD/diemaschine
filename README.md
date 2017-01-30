@@ -9,7 +9,7 @@ First you have to install OpenFace and dlib:
 
 `mkdir -p ~/src`
 
-cd ~/src`
+`cd ~/src`
 
 `tar xf dlib-18.16.tar.bz2`
 
