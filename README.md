@@ -1,10 +1,5 @@
 # diemaschine
 Find anyone on public webcams, found with shodan. 
-<<<<<<< HEAD
-
-the project is inspired by an [article](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") by Medium
-=======
->>>>>>> test
 
 the project is inspired by an [article](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") written by Medium
 
