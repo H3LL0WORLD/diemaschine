@@ -29,7 +29,7 @@ First you have to install opencv and dlib:
 
 `sudo apt-get install python-opencv`
 
-Now we have to install Torch, you can find more informations about Torch at torch.ch 
+Now we have to install Torch, you can find more informations about Torch at torch.ch, but basically, it is a platform for machine learning.
 
 `git clone https://github.com/torch/distro.git ~/torch --recursive`
 
@@ -39,6 +39,7 @@ Now we have to install Torch, you can find more informations about Torch at torc
 
 
 in the diemaschine.py script are five important functions:
+
 shodan_search: searches shodan.io for public cams and adds link-parts to the ip, so detect_faces can use them. runs detect_faces_ip_cam_once one time for each ip.
 
 detect_faces_ip_cam: detects faces (draws a rectangle around faces and mark mouth, nose and eyes blue.) on a webcam on the ip given in the arguement.
