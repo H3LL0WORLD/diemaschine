@@ -22,7 +22,7 @@ api = shodan.Shodan(SHODAN_API_KEY)
 
 
 def shodan_search(query):
-		# Wrap the request in a try/ except block to catch errors
+		
 	try:
 	       
 	        results = api.search(query)
@@ -93,14 +93,14 @@ def get_soup(url,header):
     return BeautifulSoup(urllib2.urlopen(urllib2.Request(url,headers=header)),'html.parser')
 
 def get_images(name):
-	#query = raw_input("query image")# you can change the query for the image  here
+	
 	query = name
 	image_type="ActiOn"
 	query= query.split()
 	query='+'.join(query)
 	url="https://www.google.co.in/search?q="+query+"&source=lnms&tbm=isch"
 	print url
-	#add the directory for your image here
+
 	DIR=".training-images"
 	header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36"
 	}
@@ -139,7 +139,7 @@ def get_images(name):
 	    except Exception as e:
 	        print "could not load : "+img
 	        print e
-#./util/align-dlib.py ./training-images/ align outerEyesAndNose ./aligned-images/ --size 96
+
 def pose_detection():
 	call(["sudo python ./util/align-dlib.py .training-images/ align outerEyesAndNose .aligned-images/ --size 96"])
 def get_represens():
@@ -150,5 +150,5 @@ def train_model():
 #name = raw_input("name")
 #get_images(name)
 #pose_detection
-view_webcam("http://213.101.216.58:8089/cam_1.cgi?.mjpg")
+#view_webcam("http://213.101.216.58:8089/cam_1.cgi?.mjpg")
 #shodan_search("webcamxp")
