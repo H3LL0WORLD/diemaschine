@@ -14,8 +14,12 @@ import cv2
 import urllib 
 import numpy as np
 import shodan
+import threading
+from threading import Thread
+import time
 
-SHODAN_API_KEY = "PLACE SHODAN API KEY HERE"
+
+SHODAN_API_KEY = "K9AWIb4CpTOR0u58xdJ2AJ9BGxVNJIId"
 
 api = shodan.Shodan(SHODAN_API_KEY)
 
@@ -28,62 +32,22 @@ def shodan_search(query):
 	        results = api.search(query)
 
 	        print 'Results found: %s' % results['total']
-	        for result in results['matches']:
-					#print result['ip_str']
-					detect_faces_ip_cam_once("http://"+result['ip_str']+"/cam_1.cgi?.mjpg")
+	       
+	       	for result in results['matches']:
+				#print result['ip_str']
+				cam_detect_faces_once("http://"+result['ip_str']+"/cam_1.cgi?.mjpg")
+				#print "http://"+result['ip_str']+"/cam_1.cgi?.mjpg"
 	except shodan.APIError, e:
 	        print 'Error: %s' % e
 
-def detect_faces_ip_cam_once(ip):
-#difference to detect_faces_ip_cam: will only run once
-	predictor_model = "shape_predictor_68_face_landmarks.dat"
+def cam_detect_faces(ip):
+	cascPath = "haarcascade_frontalface_default.xml"
+	faceCascade = cv2.CascadeClassifier(cascPath)
 
-	face_detector = dlib.get_frontal_face_detector()
-	face_pose_predictor = dlib.shape_predictor(predictor_model)
-	win = dlib.image_window()
+	video_capture = cv2.VideoCapture(0)
 
 	stream=urllib.urlopen(ip)
-	bytes = ''
-	i = 1
-	
-	bytes+=stream.read(1024)
-	a = bytes.find('\xff\xd8')
-	b = bytes.find('\xff\xd9')
-	if a!=-1 and b!=-1:
-	    jpg = bytes[a:b+2]
-	    bytes= bytes[b+2:]
-	    frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
-	    #cv2.imshow('i',frame)
-	    if cv2.waitKey(1) ==27:
-	        exit(0)  
-		
-		
-	detected_faces = face_detector(frame, 0)
-
-	win.set_image(frame)
-	
-	win.clear_overlay()
-	for i, face_rect in enumerate(detected_faces):
-
-			
-		print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(i, face_rect.left(), face_rect.top(), face_rect.right(), face_rect.bottom()))
-		win.add_overlay(face_rect)
-
-		pose_landmarks = face_pose_predictor(frame, face_rect)
-
-		win.add_overlay(pose_landmarks)
-
-
-def detect_faces_ip_cam(ip):
-	predictor_model = "shape_predictor_68_face_landmarks.dat"
-
-	face_detector = dlib.get_frontal_face_detector()
-	face_pose_predictor = dlib.shape_predictor(predictor_model)
-	win = dlib.image_window()
-
-	stream=urllib.urlopen(ip)
-	bytes = ''
-	i = 1
+	bytes=''
 	while True:
 	    bytes+=stream.read(1024)
 	    a = bytes.find('\xff\xd8')
@@ -91,27 +55,74 @@ def detect_faces_ip_cam(ip):
 	    if a!=-1 and b!=-1:
 	        jpg = bytes[a:b+2]
 	        bytes= bytes[b+2:]
-	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
+	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.COLOR_BGR2GRAY)
 	        #cv2.imshow('i',frame)
-	        if cv2.waitKey(1) ==27:
-	            exit(0)  
-		
-		
-		detected_faces = face_detector(frame, 0)
+	        faces = faceCascade.detectMultiScale(
+		        frame,
+		        scaleFactor=1.3,
+		        minNeighbors=5,
+		        minSize=(30, 30),
+		        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+		    )
+			# Draw a rectangle around the faces
+		for (x, y, w, h) in faces:
+			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			localtime = time.asctime( time.localtime(time.time()) )
+			print "gesicht gefunden: ", localtime
+		    # Display the resulting frame
+		cv2.imshow('Video', frame)
 
-		win.set_image(frame)
-		
-		win.clear_overlay()
-		for i, face_rect in enumerate(detected_faces):
+		if cv2.waitKey(1) & 0xFF == ord('q'):
+			break
 
-			
-			print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(i, face_rect.left(), face_rect.top(), face_rect.right(), face_rect.bottom()))
-		
-			win.add_overlay(face_rect)
+		if cv2.waitKey(1) ==27:
+			exit(0)  
 
-			pose_landmarks = face_pose_predictor(frame, face_rect)
+def cam_detect_faces_once(ip):
+	cascPath = "haarcascade_frontalface_default.xml"
+	faceCascade = cv2.CascadeClassifier(cascPath)
 
-			win.add_overlay(pose_landmarks)
+	video_capture = cv2.VideoCapture(0)
+
+	stream=urllib.urlopen(ip)
+	bytes=''
+	while True:
+	    bytes+=stream.read(1024)
+	    a = bytes.find('\xff\xd8')
+	    b = bytes.find('\xff\xd9')
+	    if a!=-1 and b!=-1:
+	        jpg = bytes[a:b+2]
+	        bytes= bytes[b+2:]
+	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.COLOR_BGR2GRAY)
+	        #cv2.imshow('i',frame)
+	        faces = faceCascade.detectMultiScale(
+		        frame,
+		        scaleFactor=1.9,
+		        minNeighbors=5,
+		        minSize=(30, 30),
+		        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+		    )
+			# Draw a rectangle around the faces
+		for (x, y, w, h) in faces:
+			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			localtime = time.asctime( time.localtime(time.time()) )
+			print "gesicht gefunden: ", localtime
+		    # Display the resulting frame
+		cv2.imshow('Video', frame)
+
+		if cv2.waitKey(1) & 0xFF == ord('q'):
+			break
+
+		if cv2.waitKey(1) ==27:
+			exit(0) 
+		break 
+
+
+
+
+
+
+
 	        
 def view_webcam(ip):
 	stream=urllib.urlopen(ip)
@@ -123,7 +134,7 @@ def view_webcam(ip):
 	    if a!=-1 and b!=-1:
 	        jpg = bytes[a:b+2]
 	        bytes= bytes[b+2:]
-	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
+	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.COLOR_BGR2GRAY)
 	        cv2.imshow('i',frame)
 	        if cv2.waitKey(1) ==27:
 	            exit(0)  
@@ -190,5 +201,5 @@ def get_images(name):
 
 #name = raw_input("name")
 #get_images(name)
-#view_webcam("http://213.101.216.58:8089/cam_1.cgi?.mjpg")
-shodan_search("webcamxp")
+cam_detect_faces("http://2.84.103.253:443/cam_1.cgi?.mjpg")
+#shodan_search("webcamxp")

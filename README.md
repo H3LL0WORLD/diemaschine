@@ -5,6 +5,10 @@ This project is inspired by [this](https://medium.com/@ageitgey/machine-learning
 
 This Project has been tested for Ubuntu 14.04
 
+
+At this Time, the program is only capable of detecting wheither there are faces, or not, and not detecting which face is there. But I'm trying to change this.
+
+
 Setup:
 First you have to install opencv and dlib:     
 `wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
