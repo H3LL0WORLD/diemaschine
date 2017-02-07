@@ -19,7 +19,7 @@ from threading import Thread
 import time
 
 
-SHODAN_API_KEY = "K9AWIb4CpTOR0u58xdJ2AJ9BGxVNJIId"
+SHODAN_API_KEY = "PLACE_API_KEY_HERE"
 
 api = shodan.Shodan(SHODAN_API_KEY)
 
