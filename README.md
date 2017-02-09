@@ -10,8 +10,12 @@ At this Time, the program is only capable of detecting wheither there are faces,
 
 
 Setup:
-First you have to install opencv and dlib: 
-    
+
+First you have to install opencv and dlib:     
+
+`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
+
+
 `mkdir -p ~/src`
 
 `cd ~/src`
@@ -26,13 +30,17 @@ First you have to install opencv and dlib:
 
 `cd build` 
 
+To compile dlib we need to install a tool called cmake:
+
+`sudo apt-get install cmake`
+
+Compile dlib:
+
 `cmake ../../tools/python`  
 
 `cmake --build . --config Release`  
 
 `sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
-
-`sudo apt-get install python-opencv`
 
 Now we have to install Torch, you can find more informations about Torch at torch.ch, but basically, it is a platform for machine learning.
 
@@ -41,6 +49,14 @@ Now we have to install Torch, you can find more informations about Torch at torc
 `cd ~/torch; bash install-deps;`
 
 `./install.sh`
+
+Next we have to install some python libraries:
+
+`sudo apt-get install python-opencv`
+
+`sudo pip install shodan`
+
+`sudo pip install bs4`
 
 
 in the diemaschine.py script are five important functions:
