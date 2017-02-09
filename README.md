@@ -10,13 +10,17 @@ At this Time, the program is only capable of detecting wheither there are faces,
 
 
 Setup:
+
 First you have to install opencv and dlib:     
 
 `wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
 
+
 `mkdir -p ~/src`
 
 `cd ~/src`
+
+`wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
 
 `tar xf dlib-18.16.tar.bz2`
 
