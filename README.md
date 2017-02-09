@@ -24,6 +24,10 @@ First you have to install opencv and dlib:
 `mkdir build` 
 
 `cd build` 
+To compile dlib we need to install a tool called cmake:
+`sudo apt-get install cmake`
+
+Compile dlib:
 
 `cmake ../../tools/python`  
 
@@ -40,6 +44,9 @@ Now we have to install Torch, you can find more informations about Torch at torc
 `cd ~/torch; bash install-deps;`
 
 `./install.sh`
+Next we have to install some python libraries:
+`sudo pip install shodan`
+`sudo pip install bs4`
 
 
 in the diemaschine.py script are five important functions:
