@@ -38,8 +38,6 @@ Compile dlib:
 
 `sudo cp dlib.so /usr/local/lib/python2.7/dist-packages`
 
-`sudo apt-get install python-opencv`
-
 Now we have to install Torch, you can find more informations about Torch at torch.ch, but basically, it is a platform for machine learning.
 
 `git clone https://github.com/torch/distro.git ~/torch --recursive`
@@ -49,6 +47,8 @@ Now we have to install Torch, you can find more informations about Torch at torc
 `./install.sh`
 
 Next we have to install some python libraries:
+
+`sudo apt-get install python-opencv`
 
 `sudo pip install shodan`
 
