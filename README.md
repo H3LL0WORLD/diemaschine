@@ -11,6 +11,7 @@ At this Time, the program is only capable of detecting wheither there are faces,
 
 Setup:
 First you have to install opencv and dlib:     
+
 `wget https://github.com/davisking/dlib/releases/download/v18.16/dlib-18.16.tar.bz2`
 
 `mkdir -p ~/src`
@@ -24,7 +25,9 @@ First you have to install opencv and dlib:
 `mkdir build` 
 
 `cd build` 
+
 To compile dlib we need to install a tool called cmake:
+
 `sudo apt-get install cmake`
 
 Compile dlib:
@@ -44,8 +47,11 @@ Now we have to install Torch, you can find more informations about Torch at torc
 `cd ~/torch; bash install-deps;`
 
 `./install.sh`
+
 Next we have to install some python libraries:
+
 `sudo pip install shodan`
+
 `sudo pip install bs4`
 
 
