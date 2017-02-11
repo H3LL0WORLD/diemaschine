@@ -54,6 +54,8 @@ Next we have to install some python libraries:
 
 `sudo pip install bs4`
 
+`sudo apt-get install python-skimage`
+
 
 in the diemaschine.py script are five important functions:
 
