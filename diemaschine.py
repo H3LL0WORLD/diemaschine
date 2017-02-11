@@ -19,7 +19,7 @@ from threading import Thread
 import time
 
 
-SHODAN_API_KEY = "K9AWIb4CpTOR0u58xdJ2AJ9BGxVNJIId"
+SHODAN_API_KEY = "SHODAN_API"
 
 api = shodan.Shodan(SHODAN_API_KEY)
 
@@ -201,5 +201,5 @@ def get_images(name):
 
 #name = raw_input("name")
 #get_images(name)
-cam_detect_faces("http://2.84.103.253:443/cam_1.cgi?.mjpg")
+view_webcam("http://213.177.16.242:8080/cam_1.cgi?.mjpg")
 #shodan_search("webcamxp")
