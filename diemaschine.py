@@ -17,6 +17,8 @@ import shodan
 import threading
 from threading import Thread
 import time
+from random import randint
+import csv
 
 
 SHODAN_API_KEY = "SHODAN_API"
@@ -39,6 +41,21 @@ def shodan_search(query):
 				#print "http://"+result['ip_str']+"/cam_1.cgi?.mjpg"
 	except shodan.APIError, e:
 	        print 'Error: %s' % e
+def add_known_face_db():
+	rnumber = (randint(0,8000000000))
+	#print rnumber
+	with open('knownfaces.csv', 'rt') as f:
+		reader = csv.reader(f, delimiter=',') # good point by @paco
+		for row in reader:
+			for field in row:
+				if field == rnumber:
+					is_in_file = True
+				else:
+					is_in_file = False
+	if is_in_file == True:
+		print rnumber + "ist schon da "
+	#else:
+    	#print rnumber + "ist noch nicht da"
 
 def cam_detect_faces(ip):
 	cascPath = "haarcascade_frontalface_default.xml"
@@ -117,12 +134,11 @@ def cam_detect_faces_once(ip):
 			exit(0) 
 		break 
 
-
-
-
-
-
-
+def create_folder(fname):
+	newpath = fname 
+	if not os.path.exists(newpath):
+		os.makedirs(newpath)
+	print newpath
 	        
 def view_webcam(ip):
 	stream=urllib.urlopen(ip)
@@ -201,5 +217,8 @@ def get_images(name):
 
 #name = raw_input("name")
 #get_images(name)
-view_webcam("http://213.177.16.242:8080/cam_1.cgi?.mjpg")
+#view_webcam("http://213.177.16.242:8080/cam_1.cgi?.mjpg")
 #shodan_search("webcamxp")
+#create_folder("test")
+#print(randint(0,100000000000000))
+add_known_face_db()
