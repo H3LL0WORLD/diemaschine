@@ -21,7 +21,7 @@ from random import randint
 import csv
 
 
-SHODAN_API_KEY = "SHODAN_API"
+SHODAN_API_KEY = "API_KEY"
 
 api = shodan.Shodan(SHODAN_API_KEY)
 
@@ -36,8 +36,8 @@ def shodan_search(query):
 	        print 'Results found: %s' % results['total']
 	       
 	       	for result in results['matches']:
-				#print result['ip_str']
-				cam_detect_faces_once("http://"+result['ip_str']+"/cam_1.cgi?.mjpg")
+				print result['ip_str']
+				#cam_detect_faces_once("http://"+result['ip_str']+"/cam_1.cgi?.mjpg")
 				#print "http://"+result['ip_str']+"/cam_1.cgi?.mjpg"
 	except shodan.APIError, e:
 	        print 'Error: %s' % e
@@ -45,7 +45,7 @@ def add_known_face_db():
 	rnumber = (randint(0,8000000000))
 	#print rnumber
 	with open('knownfaces.csv', 'rt') as f:
-		reader = csv.reader(f, delimiter=',') # good point by @paco
+		reader = csv.reader(f, delimiter=',') 
 		for row in reader:
 			for field in row:
 				if field == rnumber:
@@ -58,7 +58,7 @@ def add_known_face_db():
     	#print rnumber + "ist noch nicht da"
 
 def cam_detect_faces(ip):
-	cascPath = "haarcascade_frontalface_default.xml"
+	cascPath = "haarcascade_frontalface_default1.xml"
 	faceCascade = cv2.CascadeClassifier(cascPath)
 
 	video_capture = cv2.VideoCapture(0)
@@ -76,7 +76,7 @@ def cam_detect_faces(ip):
 	        #cv2.imshow('i',frame)
 	        faces = faceCascade.detectMultiScale(
 		        frame,
-		        scaleFactor=1.3,
+		        scaleFactor=1.9,
 		        minNeighbors=5,
 		        minSize=(30, 30),
 		        flags=cv2.cv.CV_HAAR_SCALE_IMAGE
@@ -86,9 +86,11 @@ def cam_detect_faces(ip):
 			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 			localtime = time.asctime( time.localtime(time.time()) )
 			print "gesicht gefunden: ", localtime
+			cv2.imwrite( "pics/test"+localtime+".jpg", frame )
 		    # Display the resulting frame
-		cv2.imshow('Video', frame)
 
+		cv2.imshow('Video', frame)
+		#imwrite( "pics/test.jpg", frame );
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
 
@@ -217,8 +219,9 @@ def get_images(name):
 
 #name = raw_input("name")
 #get_images(name)
-#view_webcam("http://213.177.16.242:8080/cam_1.cgi?.mjpg")
+#cam_detect_faces("http://213.177.16.242:8080/cam_1.cgi?.mjpg")
 #shodan_search("webcamxp")
 #create_folder("test")
 #print(randint(0,100000000000000))
-add_known_face_db()
+#add_known_face_db()
+view_webcam("http://23.31.187.118:9000/cam_1.cgi?.mjpg")
