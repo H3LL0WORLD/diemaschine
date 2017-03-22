@@ -3,7 +3,7 @@ Find anyone on public webcams, found with shodan.
 
 This project is inspired by [this](https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78#.lvd4mq590 "test") article written by Medium.
 
-This Project has been tested for Ubuntu 14.04
+This Project has been tested for Ubuntu 14.04 and Arch Linux. Its is based on python2
 
 
 At this Time, the program is only capable of detecting wheither there are faces, or not, and not detecting which face is there. But I'm trying to change this.
@@ -59,6 +59,10 @@ Next we have to install some python libraries:
 `sudo pip install bs4`
 
 `sudo apt-get install python-skimage`
+
+In order to detect faces you need a cascade, for example the standard one, supplied bay openface called something like "haarcascade_fratalface..."
+
+You need a classifier script too, i am using the basic one from openface called classifier.py, you have to copy it into the root directory from this repo.
 
 
 

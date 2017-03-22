@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 import requests
 import re
 import sys
@@ -14,11 +13,6 @@ import cv2
 import urllib 
 import numpy as np
 import shodan
-import threading
-from threading import Thread
-import time
-from random import randint
-import csv
 import classifier
 
 SHODAN_API_KEY = "API_KEY"
@@ -63,7 +57,7 @@ def cam_detect_faces(ip):
 
 	stream=urllib.urlopen(ip)
 	bytes=''
-	while True:
+	while 1:
 	    bytes+=stream.read(1024) 
 	    a = bytes.find('\xff\xd8')
 	    b = bytes.find('\xff\xd9')
@@ -102,27 +96,41 @@ def cam_detect_faces_once(ip):
 
 	video_capture = cv2.VideoCapture(0)
 
+	stream=urllib.urlopen(ip)
+	bytes=''
+	while 1:
+	    bytes+=stream.read(1024) 
+	    a = bytes.find('\xff\xd8')
+	    b = bytes.find('\xff\xd9')
+	    if a!=-1 and b!=-1:
+	        jpg = bytes[a:b+2]
+	        bytes= bytes[b+2:]
+	        frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.COLOR_BGR2GRAY)
+	        #cv2.imshow('i',frame)
+	        faces = faceCascade.detectMultiScale(
+		        frame,
+		        scaleFactor=1.9,
+		        minNeighbors=5,
+		        minSize=(30, 30),
+		        #flags=cv2.CV_HAAR_SCALE_IMAGE
+		    )
+			# Draw a rectangle around the faces
+		for (x, y, w, h) in faces:
+			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			localtime = time.asctime( time.localtime(time.time()) )
+			print "gesicht gefunden: ", localtime
+			cv2.imwrite( "pics/test"+localtime+".jpg", frame )
+			database_thing(frame)
+		    # Display the resulting frame
 
-	# Capture frame-by-frame
-	ret, frame = video_capture.read()
-	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	faces = faceCascade.detectMultiScale(
-	    gray,
-	    scaleFactor=1.1,
-	    minNeighbors=5,
-	    minSize=(30, 30),
-	    #flags=cv2.cv.CV_HAAR_SCALE_IMAGE
-	)
-	# Draw a rectangle around the faces
-	for (x, y, w, h) in faces:
-	    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-	    cv2.imwrite("img.jpg", frame)
-	# Display the resulting frame
-	cv2.imshow('Video', frame)
+		cv2.imshow('Video', frame)
+		#imwrite( "pics/test.jpg", frame );
+		if cv2.waitKey(1) & 0xFF == ord('q'):
+			break
 
-	# When everything is done, release the capture
-	video_capture.release()
-	cv2.destroyAllWindows()
+		if cv2.waitKey(1) ==27:
+			exit(0)
+		break  
 	        
 def view_webcam(ip):
 	stream=urllib.urlopen(ip)
@@ -139,4 +147,4 @@ def view_webcam(ip):
 	        if cv2.waitKey(1) ==27:
 	            exit(0)  
 
-cam_detect_faces_once("http://23.31.187.118:9000/cam_1.cgi?.mjpg")
+cam_detect_faces("http://23.31.187.118:9000/cam_1.cgi?.mjpg")
