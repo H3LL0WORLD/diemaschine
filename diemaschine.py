@@ -35,11 +35,14 @@ def shodan_search(query):
 				#print "http://"+result['ip_str']+"/cam_1.cgi?.mjpg"
 	except shodan.APIError, e:
 	        print 'Error: %s' % e
+def train_model():
+	classifier.train()
 
 def database_thing(frame):
+	classifier.infer("classifier.pkl")
 	#this function should wait for the output of the classifier.infer function and either save the image in a new folder or add ist to the existing folder from one person
 	cv2.imwrite( "img.jpg", frame)
-	os.call("./classifier.py infer ./classifier.pkl img.jpg") #check if the face is known, this is very shitty i know but i'll change that
+	#os.call("./classifier.py infer ./classifier.pkl img.jpg") #check if the face is known, this is very shitty i know but i'll change that
 	if 1==1:#if the face is knwon do nothing, if it isnt make a new person folder
 		print "The face is known"
 	else:
@@ -147,4 +150,5 @@ def view_webcam(ip):
 	        if cv2.waitKey(1) ==27:
 	            exit(0)  
 
-cam_detect_faces("http://23.31.187.118:9000/cam_1.cgi?.mjpg")
+view_webcam("http://23.31.187.118:9000/cam_1.cgi?.mjpg")
+#view_webcam("https://live.netcamviewer.nl/Webcam-Munster/833")
